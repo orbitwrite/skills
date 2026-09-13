@@ -1,0 +1,24 @@
+{
+  "name": "orbitwrite",
+  "owner": {
+    "name": "Orbitwrite",
+    "url": "https://orbitwrite.com"
+  },
+  "metadata": {
+    "description": "Official Orbitwrite skills and MCP connection for coding agents."
+  },
+  "plugins": [
+    {
+      "name": "orbitwrite",
+      "source": "./",
+      "description": "Plan, draft, schedule and publish social posts through your Orbitwrite workspace, over MCP or the HTTP API.",
+      "version": "0.1.0",
+      "author": { "name": "Orbitwrite", "url": "https://orbitwrite.com" },
+      "homepage": "https://orbitwrite.com",
+      "repository": "https://github.com/orbitwrite/skills",
+      "license": "MIT",
+      "keywords": ["social-media", "scheduling", "publishing", "mcp", "orbitwrite"],
+      "category": "productivity"
+    }
+  ]
+}
