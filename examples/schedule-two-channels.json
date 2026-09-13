@@ -1,0 +1,25 @@
+{
+  "scheduledAt": "2027-01-05T09:00:00Z",
+  "accounts": [
+    {
+      "accountId": "<channel id from list_channels>",
+      "isSynced": true,
+      "items": [
+        {
+          "id": "1",
+          "content": "Approval now lives inside the post editor. Add a reviewer, leave the draft with them, and Orbitwrite tells you when it is ready to schedule."
+        }
+      ]
+    },
+    {
+      "accountId": "<second channel id>",
+      "isSynced": true,
+      "items": [
+        {
+          "id": "1",
+          "content": "Approval now lives inside the post editor. Add a reviewer, leave the draft with them, and Orbitwrite tells you when it is ready to schedule."
+        }
+      ]
+    }
+  ]
+}

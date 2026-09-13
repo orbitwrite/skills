@@ -1,6 +1,11 @@
-# Orbitwrite skills
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/wordmark-dark.svg">
+    <img src="assets/wordmark-light.svg" alt="Orbitwrite" width="320">
+  </picture>
+</p>
 
-Skills and an MCP connection that let coding agents plan, draft, schedule and publish social posts through an [Orbitwrite](https://orbitwrite.com) workspace.
+<p align="center">Skills and an MCP connection that let coding agents plan, draft, schedule and publish social posts through an <a href="https://orbitwrite.com">Orbitwrite</a> workspace.</p>
 
 You need a workspace API key. In the app, open your workspace, then **Settings â†’ API keys**, mint a key with the scopes you want the agent to have, and keep it in the `ORBITWRITE_API_KEY` environment variable.
 
@@ -15,7 +20,24 @@ You need a workspace API key. In the app, open your workspace, then **Settings â
 
 The plugin's MCP entry reads `ORBITWRITE_API_KEY` from your environment.
 
-**Any agent that reads skills** (Cursor, Codex, Copilot, OpenCode, Windsurf and others)
+**Cursor**
+
+Open **Customize** in the sidebar, add `orbitwrite/skills` as a marketplace, and install **orbitwrite**. Cursor asks for the API key at install and sends it to the MCP server for you. For a local checkout:
+
+```bash
+git clone https://github.com/orbitwrite/skills.git
+ln -s "$(pwd)/skills" ~/.cursor/plugins/local/orbitwrite
+```
+
+**Gemini CLI**
+
+```bash
+gemini extensions install https://github.com/orbitwrite/skills
+```
+
+The extension prompts for the API key and connects the MCP server.
+
+**Any agent that reads skills** (Codex, Copilot, OpenCode, Windsurf and others)
 
 ```bash
 npx skills add orbitwrite/skills
@@ -27,20 +49,24 @@ Then connect the MCP server in your client's own config. The URL is `https://mcp
 
 ```bash
 node skills/orbitwrite/scripts/api.mjs GET /connected-accounts
+node skills/orbitwrite/scripts/api.mjs POST /posts --body-file examples/schedule-two-channels.json
 ```
 
 ## What's inside
 
 ```
 skills/orbitwrite/
-  SKILL.md            how to connect, the concepts, and step-by-step recipes
+  SKILL.md            how to connect, the concepts, recipes and gotchas
   scripts/api.mjs     HTTP API caller, including the three-step media upload
-  references/         generated: every MCP tool, every HTTP route, the permission vocabulary
-.claude-plugin/       Claude Code marketplace + plugin manifests
-.mcp.json             the hosted MCP server, for the Claude Code plugin
+  references/         generated: every MCP tool, every HTTP route, per-platform limits, permissions
+examples/             request bodies for POST /posts and create_post
+.claude-plugin/       Claude Code marketplace and plugin manifests
+.cursor-plugin/       Cursor marketplace and plugin manifests
+gemini-extension.json Gemini CLI extension manifest
+.mcp.json, mcp.json   the hosted MCP server, for the Claude Code and Cursor plugins
 ```
 
-`references/` is generated from the Orbitwrite source and regenerated whenever the API or the MCP tools change. Edits there will be overwritten; open an issue or edit `SKILL.md` instead.
+`references/` is generated from the Orbitwrite source and regenerated whenever the API, the MCP tools or the platform rules change. Edits there will be overwritten; open an issue or edit `SKILL.md` instead.
 
 ## Links
 

@@ -11,9 +11,9 @@ There are two ways in. Prefer MCP when the client supports it; fall back to the 
 
 ## Setup
 
-1. **Get a workspace API key.** In the app: open the workspace, then Settings → API keys. Keys look like `orbit_sk_…` and are shown once. Choose scopes when minting; a key with no scopes has the workspace's full authority. The Settings → MCP tab shows ready-made connection snippets for Claude Code, Claude Desktop, Cursor, VS Code and others.
-2. **Store the key** in the `ORBITWRITE_API_KEY` environment variable, or in `~/.orbitwrite/credentials` as `ORBITWRITE_API_KEY=orbit_sk_…`. Never write it into a project file that could be committed.
-3. **Connect the MCP server** (optional but preferred). It is at `https://mcp.orbitwrite.com`, Streamable HTTP, authenticated with `Authorization: Bearer <key>`. There is no OAuth flow; the key is the whole credential.
+1. **Get a workspace API key.** In the app: open the workspace, then Settings → API keys. Keys look like `orbit_sk_...` and are shown once. Choose scopes when minting; a key with no scopes has the workspace's full authority. The Settings → MCP tab shows ready-made connection snippets for Claude Code, Claude Desktop, Cursor, VS Code and others.
+2. **Store the key** in the `ORBITWRITE_API_KEY` environment variable, or in `~/.orbitwrite/credentials` as `ORBITWRITE_API_KEY=orbit_sk_...`. Never write it into a project file that could be committed.
+3. **Connect the MCP server** (preferred; the script below is the fallback). It is at `https://mcp.orbitwrite.com`, Streamable HTTP, authenticated with `Authorization: Bearer <key>`. There is no OAuth flow; the key is the whole credential.
 
    Claude Code:
 
@@ -38,7 +38,7 @@ There are two ways in. Prefer MCP when the client supports it; fall back to the 
 
 ## First call
 
-Run `whoami` (MCP) or `GET /me` (HTTP). It returns the workspace the key acts in and the permissions it holds. Over MCP the tool list is already filtered to those permissions, so a tool you expected but cannot see means the key lacks that scope. Do not work around a missing scope; tell the user which one is missing (see `references/permissions.md`).
+Run `whoami` (MCP) or `GET /me` (HTTP). It returns the workspace the key acts in and the permissions it holds. Over MCP the tool list is already filtered to those permissions, so a tool missing from the list means the key lacks that scope. Do not work around a missing scope; tell the user which one is missing (see `references/permissions.md`).
 
 ## Concepts
 
@@ -47,7 +47,7 @@ Run `whoami` (MCP) or `GET /me` (HTTP). It returns the workspace the key acts in
 - **Post** = composer group, addressed by `groupId`. One post can go to many channels. Channels marked `isSynced: true` share one body; an unsynced channel gets its own copy and its own thread. Each channel carries `items`, a thread of one or more entries with `content`, optional `media`/`mediaIds`, `poll`, `quote`, `replyTo`.
 - **Lifecycle.** `draft` → `scheduled` (or `pending_approval`) → `publishing` → `published`. `list_posts` / `GET /posts` returns one row per post with a `bucket` (drafts, needs_approval, needs_revision, approved, scheduled, posted). Read one post's full content with `get_post` / `GET /posts/draft?groupId=`.
 - **Times** are ISO 8601 instants and must be strictly in the future. Convert the user's local time to UTC before sending. Read the workspace timezone from `read_posting_schedule` if you need it.
-- **Posting schedule.** The workspace has weekly posting slots per channel. `suggest_post_times` / `GET /scheduling/suggestions` returns free slots; `read_posting_schedule` shows the configured times but not which are taken.
+- **Posting schedule.** The workspace has weekly posting slots per channel. `suggest_post_times` / `GET /scheduling/suggestions` returns free slots; `read_posting_schedule` shows the configured times without saying which are taken.
 - **Approvals.** A post can carry an approval request naming reviewer user ids. A `blocking` request holds the post at the publish gate until approved. Members without publish authority always get a blocking request, and cannot `publishNow`. Reviewer ids come from `list_members`.
 - **Media.** Upload first, then reference the returned media `id` in an item's `mediaIds`. Accepted: JPEG, PNG, GIF, WebP, MP4, PDF.
 - **Tags and campaigns** are labels on a post, set through `update_post_info` / `PATCH /posts/{groupId}/info` or the `info` field at create time.
@@ -94,7 +94,7 @@ Each recipe lists the MCP tools; the HTTP route is in brackets. Full inputs are 
 
 **Edit an existing post**
 
-`get_post` first, change the `accounts` array, then `save_draft` with the same `groupId`. A save replaces the whole post, so send everything back, not just the changed item.
+`get_post` first, change the `accounts` array, then `save_draft` with the same `groupId`. A save replaces the whole post, so send every item back, including the unchanged ones.
 
 **Triage the inbox**
 
@@ -108,6 +108,22 @@ Each recipe lists the MCP tools; the HTTP route is in brackets. Full inputs are 
 - Keep the user's words. Do not rewrite copy the user supplied unless asked; platform limits are enforced server-side and an `invalid` error names the problem.
 - Do not describe `best-time` suggestions as data about the user's audience. They are a static per-platform heuristic.
 - Never print or store the API key in a file the user did not name.
+
+## Gotchas
+
+- **Every platform has its own limits.** Text length, media count and size, poll rules and the options a network accepts are all in `references/platforms.md`. Shape the post to fit before sending. The server refuses an oversized post with `invalid` and names the rule.
+- **Media must be uploaded first.** A raw local path or an arbitrary URL in `media` is refused unless it is publicly fetchable. Upload, take the returned id, put it in `mediaIds`.
+- **TikTok needs an MP4 of at least 23 fps**, judged from the uploaded file at publish time. A 15 fps screen recording is accepted at upload and fails at publish, with the reason in `get_publish_status`.
+- **Instagram needs an image or video on every item.** There is no text-only Instagram post.
+- **`isSynced` defaults differ** between the HTTP body and the MCP draft tool. Always set it.
+- **`scheduledAt` is required even with `publishNow: true`.** Send the current time.
+- **A draft has no real time.** `list_posts` reports `scheduledAt: null` for it, and date filters exclude it.
+- **A save replaces the whole post.** `save_draft` with a `groupId` deletes and re-inserts every item, so send everything back.
+- **Publish-now returns before anything is published.** The result says `publishing: true`; the outcome is in `get_publish_status`.
+- **The MCP tool list is filtered by scope.** If a tool is missing, the key lacks that permission; nothing is broken.
+- **Best-time suggestions are a static heuristic**, never this account's analytics. Say so if the user asks.
+
+Worked request bodies for the common shapes are in `examples/` at the repository root.
 
 ## Errors
 
@@ -125,7 +141,8 @@ Services raise one of seven domain codes. Over HTTP the body is `{ "error": "...
 
 ## References
 
-- `references/README.md` — index of everything below.
-- `references/mcp-tools.md` — every tool, its required scope and input schema.
-- `references/permissions.md` — the scope vocabulary and which roles hold what.
-- `references/api/<area>.md` — the HTTP API, one file per area, generated from the OpenAPI spec. The live spec is `https://orbitwrite.com/api/v1/openapi.json`.
+- `references/README.md`: index of everything below.
+- `references/mcp-tools.md`: every tool, its required scope and input schema.
+- `references/permissions.md`: the scope vocabulary and which roles hold what.
+- `references/platforms.md`: per-network text, media, poll and option limits, plus the per-channel fields on a post.
+- `references/api/<area>.md`: the HTTP API, one file per area, generated from the OpenAPI spec. The live spec is `https://orbitwrite.com/api/v1/openapi.json`.

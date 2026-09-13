@@ -1,0 +1,28 @@
+{
+  "scheduledAt": "2027-01-05T14:30:00Z",
+  "accounts": [
+    {
+      "accountId": "<X channel id>",
+      "isSynced": false,
+      "replySettings": "everyone",
+      "items": [
+        {
+          "id": "1",
+          "content": "Three things we changed in the composer this month. A short thread."
+        },
+        {
+          "id": "2",
+          "content": "1. Approval requests sit in the post itself. Pick a reviewer, and the post waits at the gate until they say yes."
+        },
+        {
+          "id": "3",
+          "content": "2. Posting slots are per channel now. A LinkedIn page and an X account can keep different rhythms."
+        },
+        {
+          "id": "4",
+          "content": "3. Link previews are picked from the text automatically, and you can swap which link gets the card."
+        }
+      ]
+    }
+  ]
+}

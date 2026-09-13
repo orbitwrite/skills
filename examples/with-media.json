@@ -1,0 +1,27 @@
+{
+  "scheduledAt": "2027-01-06T10:00:00Z",
+  "accounts": [
+    {
+      "accountId": "<LinkedIn channel id>",
+      "isSynced": true,
+      "items": [
+        {
+          "id": "1",
+          "content": "The new schedule view. One week, every channel, drag a post to move it.",
+          "mediaIds": ["<media id from upload_media, upload_media_from_url or scripts/api.mjs upload>"]
+        }
+      ]
+    },
+    {
+      "accountId": "<Bluesky channel id>",
+      "isSynced": true,
+      "items": [
+        {
+          "id": "1",
+          "content": "The new schedule view. One week, every channel, drag a post to move it.",
+          "mediaIds": ["<the same media id>"]
+        }
+      ]
+    }
+  ]
+}

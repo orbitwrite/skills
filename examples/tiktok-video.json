@@ -1,0 +1,25 @@
+{
+  "scheduledAt": "2027-01-08T17:00:00Z",
+  "accounts": [
+    {
+      "accountId": "<TikTok channel id>",
+      "isSynced": false,
+      "platformOptions": {
+        "tiktok": {
+          "title": "How we plan a week of posts in one sitting",
+          "privacyLevel": "PUBLIC_TO_EVERYONE",
+          "disableDuet": false,
+          "disableStitch": false,
+          "disableComment": false
+        }
+      },
+      "items": [
+        {
+          "id": "1",
+          "content": "One sitting, one week, every channel.",
+          "mediaIds": ["<media id of an MP4 uploaded first>"]
+        }
+      ]
+    }
+  ]
+}

@@ -6,6 +6,7 @@ Generated from the Orbitwrite source. Read the file for the surface you are abou
 
 - [MCP tools](mcp-tools.md) — all 46 tools, with the scope each needs and its input schema.
 - [Permissions](permissions.md) — the `resource:action` vocabulary and which roles hold what.
+- [Platforms](platforms.md) — per-network text, media, poll and option limits.
 
 ## HTTP API (`https://orbitwrite.com/api/v1`)
 

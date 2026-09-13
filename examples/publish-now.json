@@ -1,0 +1,16 @@
+{
+  "scheduledAt": "2027-01-05T09:00:00Z",
+  "publishNow": true,
+  "accounts": [
+    {
+      "accountId": "<Mastodon channel id>",
+      "isSynced": true,
+      "items": [
+        {
+          "id": "1",
+          "content": "v2.4 is out. Changelog: https://orbitwrite.com/changelog"
+        }
+      ]
+    }
+  ]
+}

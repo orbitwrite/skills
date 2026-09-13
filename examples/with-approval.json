@@ -1,0 +1,21 @@
+{
+  "scheduledAt": "2027-01-07T08:00:00Z",
+  "accounts": [
+    {
+      "accountId": "<Threads channel id>",
+      "isSynced": true,
+      "items": [
+        {
+          "id": "1",
+          "content": "Pricing changes on 1 February. Existing workspaces keep their current plan until renewal. Details in the link."
+        }
+      ]
+    }
+  ],
+  "approval": {
+    "reviewerIds": ["<member userId from list_members>"],
+    "message": "Please check the renewal wording before this goes out.",
+    "blocking": true,
+    "requireAll": false
+  }
+}

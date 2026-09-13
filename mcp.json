@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "orbitwrite": {
+      "url": "https://mcp.orbitwrite.com",
+      "headers": {
+        "Authorization": "Bearer ${ORBITWRITE_API_KEY}"
+      }
+    }
+  }
+}
