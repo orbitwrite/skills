@@ -1,0 +1,19 @@
+{
+  "scheduledAt": "2027-01-11T11:00:00Z",
+  "accounts": [
+    {
+      "accountId": "<X or Mastodon channel id>",
+      "isSynced": false,
+      "items": [
+        {
+          "id": "1",
+          "content": "Which part of scheduling still costs you the most time?",
+          "poll": {
+            "options": ["Writing the post", "Picking a time", "Getting sign-off", "Resizing media"],
+            "durationMinutes": 1440
+          }
+        }
+      ]
+    }
+  ]
+}

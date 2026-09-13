@@ -1,0 +1,16 @@
+{
+  "scheduledAt": "2027-01-11T15:00:00Z",
+  "accounts": [
+    {
+      "accountId": "<Bluesky or X channel id>",
+      "isSynced": false,
+      "items": [
+        {
+          "id": "1",
+          "content": "This is the thread that convinced us to build per-channel posting slots.",
+          "quote": "https://bsky.app/profile/example.bsky.social/post/3kabcdefghij"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "replaceGroupId": "<groupId of the scheduled post to replace>",
+  "scheduledAt": "2027-01-16T09:00:00Z",
+  "accounts": [
+    {
+      "accountId": "<X channel id>",
+      "isSynced": true,
+      "items": [
+        { "id": "1", "content": "Corrected: the pricing change starts 1 March, not 1 February. Existing workspaces keep their plan until renewal." }
+      ]
+    }
+  ]
+}

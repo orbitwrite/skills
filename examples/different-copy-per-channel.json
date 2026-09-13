@@ -1,0 +1,25 @@
+{
+  "scheduledAt": "2027-01-12T13:00:00Z",
+  "accounts": [
+    {
+      "accountId": "<X channel id>",
+      "isSynced": false,
+      "items": [
+        {
+          "id": "1",
+          "content": "Per-channel posting slots are live. Your LinkedIn page and your X account can keep different rhythms now."
+        }
+      ]
+    },
+    {
+      "accountId": "<LinkedIn channel id>",
+      "isSynced": false,
+      "items": [
+        {
+          "id": "1",
+          "content": "Posting slots are now set per channel.\n\nUntil today a workspace had one weekly grid and every channel inherited it. That suited a single account and fought anyone running a company page alongside a personal profile. Each channel can now keep its own times, and channels without their own grid still inherit the workspace's.\n\nOpen Settings, then Channels, pick a channel and set its slots."
+        }
+      ]
+    }
+  ]
+}

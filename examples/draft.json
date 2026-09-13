@@ -1,0 +1,14 @@
+{
+  "accounts": [
+    {
+      "accountId": "<LinkedIn channel id>",
+      "isSynced": true,
+      "items": [
+        {
+          "id": "1",
+          "content": "Draft: a note on why we moved approvals into the editor. Needs a second pair of eyes on the second paragraph."
+        }
+      ]
+    }
+  ]
+}

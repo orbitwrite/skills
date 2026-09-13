@@ -1,0 +1,17 @@
+{
+  "scheduledAt": "2027-01-15T10:00:00Z",
+  "accounts": [
+    {
+      "accountId": "<Threads channel id>",
+      "isSynced": true,
+      "items": [
+        { "id": "1", "content": "Day 3 of the launch week: the schedule view, and why we drew it as a week rather than a month." }
+      ]
+    }
+  ],
+  "info": {
+    "title": "Launch week, day 3",
+    "tags": ["launch", "product"],
+    "campaignId": "<campaign id from list_campaigns, or null>"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "scheduledAt": "2027-01-12T09:00:00Z",
+  "accounts": [
+    {
+      "accountId": "<LinkedIn channel id>",
+      "isSynced": true,
+      "items": [
+        {
+          "id": "1",
+          "content": "We wrote up how the approval gate works, and why a non-blocking review never touches it. https://orbitwrite.com/changelog/approval-gate",
+          "linkPreview": {
+            "url": "https://orbitwrite.com/changelog/approval-gate",
+            "matchUrl": "https://orbitwrite.com/changelog/approval-gate",
+            "title": "How the approval gate works",
+            "description": "A blocking request holds a post at the gate; a non-blocking review is a comment on the side.",
+            "image": "https://orbitwrite.com/images/changelog/approval-gate.png",
+            "siteName": "Orbitwrite"
+          }
+        }
+      ]
+    }
+  ]
+}

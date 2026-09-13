@@ -1,0 +1,45 @@
+{
+  "scheduledAt": "2027-01-14T14:00:00Z",
+  "accounts": [
+    {
+      "accountId": "<company X channel id>",
+      "isSynced": false,
+      "items": [
+        {
+          "id": "1",
+          "content": "Posting slots are now per channel. Details in the first reply."
+        }
+      ],
+      "autoEngagement": {
+        "comment": {
+          "enabled": true,
+          "entries": [
+            {
+              "fromAccountId": "<company X channel id>",
+              "delayMinutes": 2,
+              "replyTarget": "root",
+              "items": [
+                {
+                  "id": "c1",
+                  "content": "Full write-up, with the inheritance rules for channels that keep the workspace grid: https://orbitwrite.com/changelog/posting-slots"
+                }
+              ]
+            }
+          ]
+        },
+        "like": {
+          "enabled": true,
+          "entries": [
+            { "fromAccountId": "<founder's personal X channel id>", "delayMinutes": 15 }
+          ]
+        },
+        "repost": {
+          "enabled": true,
+          "entries": [
+            { "fromAccountId": "<founder's personal X channel id>", "delayMinutes": 60 }
+          ]
+        }
+      }
+    }
+  ]
+}

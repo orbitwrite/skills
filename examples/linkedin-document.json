@@ -1,0 +1,16 @@
+{
+  "scheduledAt": "2027-01-14T09:30:00Z",
+  "accounts": [
+    {
+      "accountId": "<LinkedIn channel id>",
+      "isSynced": false,
+      "items": [
+        {
+          "id": "1",
+          "content": "Our one-page guide to running approvals with a two-person marketing team. Swipe through.",
+          "mediaIds": ["<media id of a PDF uploaded first>"]
+        }
+      ]
+    }
+  ]
+}

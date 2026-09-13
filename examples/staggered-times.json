@@ -1,0 +1,29 @@
+{
+  "scheduledAt": "2027-01-13T08:00:00Z",
+  "accounts": [
+    {
+      "accountId": "<X channel id>",
+      "isSynced": true,
+      "scheduledAt": "2027-01-13T08:00:00Z",
+      "items": [
+        { "id": "1", "content": "Changelog for January is up. Twelve fixes, two new networks, one fewer setting." }
+      ]
+    },
+    {
+      "accountId": "<LinkedIn channel id>",
+      "isSynced": true,
+      "scheduledAt": "2027-01-13T12:00:00Z",
+      "items": [
+        { "id": "1", "content": "Changelog for January is up. Twelve fixes, two new networks, one fewer setting." }
+      ]
+    },
+    {
+      "accountId": "<Mastodon channel id>",
+      "isSynced": true,
+      "scheduledAt": "2027-01-13T17:30:00Z",
+      "items": [
+        { "id": "1", "content": "Changelog for January is up. Twelve fixes, two new networks, one fewer setting." }
+      ]
+    }
+  ]
+}

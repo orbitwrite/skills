@@ -1,0 +1,16 @@
+{
+  "scheduledAt": "2027-01-11T15:30:00Z",
+  "accounts": [
+    {
+      "accountId": "<X channel id>",
+      "isSynced": false,
+      "items": [
+        {
+          "id": "1",
+          "content": "Yes, and the queue strategy keeps a batch in order, so a five-part series lands Monday to Friday without picking each slot by hand.",
+          "replyTo": "https://x.com/example/status/1234567890123456789"
+        }
+      ]
+    }
+  ]
+}
