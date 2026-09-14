@@ -1,0 +1,20 @@
+{
+  "name": "orbitwrite",
+  "version": "0.1.0",
+  "description": "Plan, draft, schedule and publish social posts through your Orbitwrite workspace on X, LinkedIn, Bluesky, Mastodon, Threads, Instagram, Facebook, TikTok and Discord. Bundles the orbitwrite skill and the hosted Orbitwrite MCP server.",
+  "author": { "name": "Orbitwrite", "url": "https://orbitwrite.com" },
+  "homepage": "https://orbitwrite.com",
+  "repository": "https://github.com/orbitwrite/skills",
+  "license": "MIT",
+  "logo": "assets/logo.svg",
+  "keywords": ["orbitwrite", "orbitwrite mcp", "orbitwrite schedule", "orbitwrite post"],
+  "skills": ["./skills/orbitwrite"],
+  "mcpServers": {
+    "orbitwrite": {
+      "type": "http",
+      "url": "https://mcp.orbitwrite.com",
+      "headers": { "Authorization": "Bearer ${ORBITWRITE_API_KEY}" },
+      "note": "Hosted Orbitwrite MCP server (streamable HTTP). Authenticates with a workspace API key from Settings, then API keys, read from the ORBITWRITE_API_KEY environment variable."
+    }
+  }
+}

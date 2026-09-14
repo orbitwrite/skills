@@ -1,0 +1,3 @@
+[mcp_servers.orbitwrite]
+url = "https://mcp.orbitwrite.com"
+bearer_token_env_var = "ORBITWRITE_API_KEY"

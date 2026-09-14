@@ -37,6 +37,10 @@ gemini extensions install https://github.com/orbitwrite/skills
 
 The extension prompts for the API key and connects the MCP server.
 
+**Grok Build**
+
+Add `orbitwrite/skills` as a marketplace source, or install it from the xAI plugin marketplace once listed. Grok reads the bundled `.mcp.json` and expands `ORBITWRITE_API_KEY` from your environment into the bearer header.
+
 **Any agent that reads skills** (Codex, Copilot, OpenCode, Windsurf and others)
 
 ```bash
@@ -62,8 +66,9 @@ skills/orbitwrite/
 examples/             request bodies for POST /posts and create_post
 .claude-plugin/       Claude Code marketplace and plugin manifests
 .cursor-plugin/       Cursor marketplace and plugin manifests
+.grok-plugin/         Grok Build marketplace and plugin manifests
 gemini-extension.json Gemini CLI extension manifest
-.mcp.json, mcp.json   the hosted MCP server, for the Claude Code and Cursor plugins
+.mcp.json, mcp.json   the hosted MCP server, for the Claude Code, Grok Build and Cursor plugins
 ```
 
 `references/` is generated from the Orbitwrite source and regenerated whenever the API, the MCP tools or the platform rules change. Edits there will be overwritten; open an issue or edit `SKILL.md` instead.

@@ -1,0 +1,18 @@
+{
+  "name": "orbitwrite",
+  "description": "Official Orbitwrite skills and MCP connection for coding agents.",
+  "owner": { "name": "Orbitwrite" },
+  "plugins": [
+    {
+      "name": "orbitwrite",
+      "description": "Plan, draft, schedule and publish social posts through your Orbitwrite workspace. Bundles the orbitwrite skill and the hosted Orbitwrite MCP server.",
+      "category": "productivity",
+      "source": "./",
+      "homepage": "https://orbitwrite.com",
+      "keywords": ["orbitwrite", "orbitwrite mcp", "orbitwrite schedule", "orbitwrite post"],
+      "domains": ["orbitwrite.com"],
+      "version": "0.1.0",
+      "author": { "name": "Orbitwrite" }
+    }
+  ]
+}
