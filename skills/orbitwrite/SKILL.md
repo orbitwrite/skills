@@ -48,7 +48,7 @@ Run `whoami` (MCP) or `GET /me` (HTTP). It returns the workspace the key acts in
 - **Lifecycle.** `draft` → `scheduled` (or `pending_approval`) → `publishing` → `published`. `list_posts` / `GET /posts` returns one row per post with a `bucket` (drafts, needs_approval, needs_revision, approved, scheduled, posted). Read one post's full content with `get_post` / `GET /posts/draft?groupId=`.
 - **Times** are ISO 8601 instants and must be strictly in the future. Convert the user's local time to UTC before sending. Read the workspace timezone from `read_posting_schedule` if you need it.
 - **Posting schedule.** The workspace has weekly posting slots per channel. `suggest_post_times` / `GET /scheduling/suggestions` returns free slots; `read_posting_schedule` shows the configured times without saying which are taken.
-- **Approvals.** A post can carry an approval request naming reviewer user ids. A `blocking` request holds the post at the publish gate until approved. Members without publish authority always get a blocking request, and cannot `publishNow`. Reviewer ids come from `list_members`.
+- **Approvals.** A post can carry an approval request naming reviewer user ids. A blocking request (`blocking: true`) holds the post at the publish gate until approved. A non-blocking one (`blocking: false`) lets the post publish on schedule and treats the review as advice. Members without publish authority always get a blocking request, and cannot `publishNow`. Reviewer ids come from `list_members`.
 - **Media.** Upload first, then reference the returned media `id` in an item's `mediaIds`. Accepted: JPEG, PNG, GIF, WebP, MP4, PDF.
 - **Tags and campaigns** are labels on a post, set through `update_post_info` / `PATCH /posts/{groupId}/info` or the `info` field at create time.
 - **Inbox.** Replies and mentions across channels as conversations with status, snooze and a read watermark shared by the whole team.
@@ -78,7 +78,7 @@ Each recipe lists the MCP tools; the HTTP route is in brackets. Full inputs are 
 
 1. `save_draft` [`POST /posts/draft`] with the content. Keep the returned `groupId`.
 2. `list_members` to find reviewer user ids.
-3. `request_approval` with `reviewerIds` and `blocking: true` [`POST /posts/{groupId}/approval-request`].
+3. `request_approval` with `reviewerIds` and `blocking` [`POST /posts/{groupId}/approval-request`]. If the user hasn't said whether the post should wait for approval, ask them first (see the rules below).
 4. `schedule_post` [`POST /posts/reschedule`] with the intended time. It fires once approved. Or pass `approval` directly to `create_post` to do it in one call.
 
 **Fill the queue with several posts**
@@ -105,6 +105,8 @@ Each recipe lists the MCP tools; the HTTP route is in brackets. Full inputs are 
 - Read before writing. List channels, posts or members before naming an id; never fabricate one.
 - Confirm before anything hard to undo: deleting a post, unscheduling, publishing now, bulk inbox sweeps.
 - After a write, report the ids that came back (`groupId`, media `id`, conversation id) so the user can find the thing in the app.
+- Ask before choosing how a review behaves. When the user asks for an approval without saying whether it should hold the post, offer two options: blocking (the post waits until approved) or non-blocking (the post publishes on schedule and the review is advice). Pass their answer as `blocking` on `request_approval` or `create_post`'s `approval`. For an author without publish authority, pass `true`.
+- Keep an approval's `blocking` value when editing it. An `intent: "edit"` call writes `blocking` as sent, so read the current value with `get_approval` [`GET /posts/{groupId}/approval-request`] and send it back unless the user asked to change it. Over HTTP, `blocking` defaults to `false` when left out, so always send it.
 - Keep the user's words. Do not rewrite copy the user supplied unless asked; platform limits are enforced server-side and an `invalid` error names the problem.
 - Do not describe `best-time` suggestions as data about the user's audience. They are a static per-platform heuristic.
 - Never print or store the API key in a file the user did not name.
