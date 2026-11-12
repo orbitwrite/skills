@@ -96,6 +96,14 @@ Each recipe lists the MCP tools; the HTTP route is in brackets. Full inputs are 
 
 `get_post` first, change the `accounts` array, then `save_draft` with the same `groupId`. A save replaces the whole post, so send every item back, including the unchanged ones.
 
+**Address review comments**
+
+1. `get_post` for the copy and `list_comments` [`GET /comments?groupId=`] for the threads. Skip resolved threads and `kind: "suggestion"` rows: suggested edits are anchored in the app's editor and accepted there.
+2. Sort each open thread. Yours to fix: a concrete change to the copy that leaves nothing to decide. The user's: a judgement call, media, channels or timing, praise, replies that disagree, anything unclear.
+3. Show the revised copy and which threads it addresses and which stay open, with why. Only after the user agrees, `save_draft` with the same `groupId` (every item back), then `resolve_comment` [`PUT /comments/{id}/resolved`] for each thread it addressed. Offer replies on the rest with `add_comment` and `parentId` [`POST /comments/{id}/replies`].
+
+Comments and replies made with an API key appear under the name of the person who created the key. The `address_comments` prompt runs this from an MCP host.
+
 **Triage the inbox**
 
 `list_conversations` filtered by type or status → `get_conversation` for the thread → `resolve_conversation`, `snooze_conversation` (wake time strictly future) or `mark_conversation_read`. Replying is done from the app or the HTTP API; see `references/api/conversations.md`.
